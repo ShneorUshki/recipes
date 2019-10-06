@@ -7,7 +7,8 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-      'axios'
+      'axios',
+      'firebase'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -56,7 +57,6 @@ module.exports = function (ctx) {
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       scopeHoisting: true,
-      rtl: true,
       // vueRouterMode: 'history',
       // showProgress: false,
       // gzip: true,
