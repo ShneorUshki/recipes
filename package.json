@@ -1,8 +1,8 @@
 {
   "name": "recipes",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "App for saving recipes lightly",
+  "productName": "Recipes App",
   "cordovaId": "org.cordova.quasar.app",
   "author": "ShneorUshki <shneoru770@gmail.com>",
   "private": true,

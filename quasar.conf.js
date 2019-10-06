@@ -17,6 +17,7 @@ module.exports = function (ctx) {
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
+      'material-icons',
       // 'ionicons-v4',
       // 'mdi-v4',
       // 'fontawesome-v5',
@@ -55,6 +56,7 @@ module.exports = function (ctx) {
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       scopeHoisting: true,
+      rtl: true,
       // vueRouterMode: 'history',
       // showProgress: false,
       // gzip: true,
