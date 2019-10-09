@@ -1,6 +1,6 @@
 // src/store/showcase/mutations.js
 
-const state = {
+/* const state = {
   recipes: {
     nama: "123",
     nama2: "123"
@@ -13,14 +13,13 @@ const getters = {
   }
 };
 const actions = {
-addUp(){
-  console.log('ok');
-  
+ 
 }
-};
+
 export default {
   namespaced: true,
   state,
   getters,
   actions
 };
+ */

@@ -1,9 +1,9 @@
 <template>
   <div class="q-pa-md" style="max-width: 400px">
-    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+    <q-form @submit="onSubmit" class="q-gutter-md">
       <div>
         <q-btn-toggle
-          v-model="status"
+          v-model="recipe.status"
           class="my-custom-toggle"
           no-caps
           rounded
@@ -12,42 +12,47 @@
           color="white"
           text-color="primary"
           :options="[
-          {label: 'public', value: 'one'},
-          {label: 'Private', value: 'two'}
-        ]"
+            { label: 'public', value: 'public' },
+            { label: 'private', value: 'private' }
+          ]"
         />
       </div>
 
       <q-input
         filled
-        v-model="recipeName"
+        v-model="recipe.recipeName"
         label="כותרת המתכון *"
         hint="כותרת ראשית שנדע לזהות"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'בבקשה אל תשאיר אותי ריק']"
       />
       <q-input
         filled
-        v-model="time"
+        v-model="recipe.time"
         label="זמן הכנה *"
         hint="כמה זמן לוקח להכין את המתכון"
         type="number"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'בבקשה אל תשאיר אותי ריק']"
       />
-      <q-input
+      <!--  <q-input
         filled
-        v-model="url"
+        v-model="recipe.url"
         label="כתובת אתר *"
         hint="הדבק כותבת אתר לשמירת מתכון"
         type="url"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'בבקשה אל תשאיר אותי ריק']"
+      /> -->
+      <q-select
+        filled
+        v-model="recipe.category"
+        :options="options"
+        label="Label (stacked)"
+        stack-label
+        :dense="dense"
+        :options-dense="denseOpts"
       />
-
       <q-badge color="secondary">דרגת קושי</q-badge>
       <q-slider
-        v-model="Difficulty"
+        v-model="recipe.Difficulty"
         label
         label-always
         color="green"
@@ -57,66 +62,94 @@
         :max="10"
       />
 
-      <q-input filled v-model="Ingredients" label="מרכיבים" />
-      <q-input filled v-model="Preparation" label="אופן ההכנה" />
+      <q-input filled v-model="recipe.Ingredients" label="מרכיבים" />
+      <q-input filled v-model="recipe.Preparation" label="אופן ההכנה" />
 
       <div class="q-gutter-sm">
-        <q-radio keep-color v-model="type" val="orange" label="פרווה" color="orange" />
-        <q-radio keep-color v-model="type" val="red" label="בשרי" color="red" />
-        <q-radio keep-color v-model="type" val="cyan" label="חלבי" color="cyan" />
+        <q-radio
+          keep-color
+          v-model="recipe.type"
+          val="fur"
+          label="פרווה"
+          color="orange"
+        />
+        <q-radio
+          keep-color
+          v-model="recipe.type"
+          val="meat"
+          label="בשרי"
+          color="red"
+        />
+        <q-radio
+          keep-color
+          v-model="recipe.type"
+          val="milk"
+          label="חלבי"
+          color="cyan"
+        />
       </div>
- <q-btn label="Submit" @click="addUP" color="primary" />
+
       <div>
         <q-btn label="Submit" type="submit" color="primary" />
-        <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+        <q-btn
+          label="Reset"
+          type="reset"
+          color="primary"
+          flat
+          class="q-ml-sm"
+        />
       </div>
     </q-form>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      status: "one",
-      recipeName: null,
-      time: null,
-      url: null,
-      Difficulty: 0,
-      Ingredients: null,
-      Preparation: null,
-      type: ""
+      recipe: {
+        recipeID: 0,
+        category: null,
+        status: "",
+        recipeName: null,
+        time: null,
+        url: "",
+        img: "",
+        Difficulty: 0,
+        Ingredients: {},
+        Preparation: {},
+        type: ""
+      },
+      options: ["Google", "Facebook", "Twitter", "Apple", "Oracle"],
+      dense: false,
+      denseOpts: false
     };
   },
-  computed: {
-    ...mapGetters('recipe', ['recipes'])
-  },
   methods: {
-    ...mapActions('recipe', ['addUp']),
-    
     onSubmit() {
-      if (this.accept !== true) {
-        this.$q.notify({
-          color: "red-5",
-          textColor: "white",
-          icon: "warning",
-          message: "You need to accept the license and terms first"
-        });
-      } else {
-        this.$q.notify({
-          color: "green-4",
-          textColor: "white",
-          icon: "cloud_done",
-          message: "Submitted"
-        });
-      }
+      this.addRecipe();
     },
-
-    onReset() {
-      this.recipeName = null;
-      this.age = null;
+    addRecipe() {
+      this.createID();
+      this.$store.dispatch("recipes/addRecipe", this.recipe).then(() => {
+        console.log("addt");
+      });
+    },
+    createID() {
+      this.recipe.recipeID += 1;
     }
+
+    /*  onReset() {
+      (this.status = null),
+        (this.recipeName = null),
+        (this.time = null),
+        (this.url = null),
+        (this.img = null),
+        (this.Difficulty = null),
+        (this.Ingredients = null),
+        (this.Preparation = null),
+        (this.type = null);
+    } */
   }
 };
 </script>

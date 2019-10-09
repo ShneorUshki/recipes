@@ -52,7 +52,7 @@
               <q-icon name="inbox" />
             </q-item-section>
           </q-item>
-          
+
           <q-item clickable v-ripple>
             <q-item-section>Star</q-item-section>
 

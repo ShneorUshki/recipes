@@ -72,6 +72,7 @@ module.exports = function (ctx) {
           loader: 'eslint-loader',
           exclude: /node_modules/,
           options: {
+            fix: true,
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
         })

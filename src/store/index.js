@@ -1,9 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import recipe from './Add-recipe'
-import users from './users'
-// import example from './module-example'
+import recipes from "./modules/recipes";
 
 Vue.use(Vuex);
 
@@ -15,8 +13,7 @@ Vue.use(Vuex);
 export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      recipe,
-      users
+      recipes
     },
 
     // enable strict mode (adds overhead!)
